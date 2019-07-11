@@ -59,24 +59,68 @@
  網羅条件が命令であれば、命令網羅と呼ばれ(またはステートメントカバレッジ、C0とも呼ばれる)、すべての実行可能な命令のうち、テストで実行された命令の割合を意味する。
  そのほかに、すべての判定条件（if文による分岐など）のうち、テストで実行された判定条件を意味する判定条件網羅(ブランチカバレッジ、C1とも呼ばれる)などがあります。
 
+## 2.testtthatについて
+
+ Rのパッケージ開発のための自動化テストライブラリ。
+ 
+ テストの粒度によって、expect、test、contextの３つが考慮されている。
+ 粒度の大きさとしてはcontext＞test＞expectとなっている。
+ 関数のテストはexpect単位で書いて、それをtestでまとめるというのが基本形。
+ 規模が大きくなるとtestをさらにcontextでまとめる。
+
+ `expect_that`:入力する値と期待する結果のセット
+ `test_that`:テストする項目名(関数単位)
+ `expect_that`:テストをまとめたブロック
+ 
+ `sample_code.R`
+
+ ```R
+ add <- function(x,y)x+y                #テストしたい関数
+ ```
+
+`test_code.R`
+
+ ```R
+ context("work numeric")                #テスト実行時に出すメッセージ
+ test_that("numeric add", {             #unit test 項目名
+  expect_that(add(1,2), equals(3))　　　 #入力する値と期待する結果のセット 1
+  expect_that(add(-1,-1), equals(-2))　 #入力する値と期待する結果のセット 2
+ })
+ ```
+モックらしき関数？
+https://www.rdocumentation.org/packages/testthat/versions/2.1.1
+
+
 ## <参考URL>
 
-- [知識ゼロから学ぶソフトウェアテスト](https://qiita.com/kiyodori/items/94731da4cc3bcb5f6f2a)
+ ### 1.ソフトウェアテストについて
 
-- [wacate](https://wacate.jp/)
+ - [知識ゼロから学ぶソフトウェアテスト](https://qiita.com/kiyodori/items/94731da4cc3bcb5f6f2a)
 
-- [ソフトウェアテストことはじめ](https://www.slideshare.net/mhlyc/ss-53443695?ref=http://mhlyc.hatenablog.com/entry/2017/05/26/074749)
+ - [wacate](https://wacate.jp/)
 
-- [はじめてのはじめてのソフトウェアテスト](https://www.slideshare.net/rinakume9/ss-63272759?ref=http://mhlyc.hatenablog.com/entry/2017/05/26/074749)
+ - [ソフトウェアテストことはじめ](https://www.slideshare.net/mhlyc/ss-53443695?ref=http://mhlyc.hatenablog.com/entry/2017/05/26/074749)
 
-- [wikipedia ソフトウェアテスト](https://ja.wikipedia.org/wiki/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E3%83%86%E3%82%B9%E3%83%88)
+ - [はじめてのはじめてのソフトウェアテスト](https://www.slideshare.net/rinakume9/ss-63272759?ref=http://mhlyc.hatenablog.com/entry/2017/05/26/074749)
 
-- [スタブ【テスト】 (stub)](https://wa3.i-3-i.info/word14933.html)
+ - [wikipedia ソフトウェアテスト](https://ja.wikipedia.org/wiki/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E3%83%86%E3%82%B9%E3%83%88)
 
-- [スタブとモックの違い](https://qiita.com/k5trismegistus/items/10ce381d29ab62ca0ea6)
+ - [スタブ【テスト】 (stub)](https://wa3.i-3-i.info/word14933.html)
 
-- [TDD > モック / スタブ](https://qiita.com/7of9/items/8e2cb2070f2b2ea4e5ec)
+ - [スタブとモックの違い](https://qiita.com/k5trismegistus/items/10ce381d29ab62ca0ea6)
 
-- [What are mock and stub used in unit testing?](https://blog.morizyun.com/blog/mock-stub-outline-rspec-ruby/)
+ - [TDD > モック / スタブ](https://qiita.com/7of9/items/8e2cb2070f2b2ea4e5ec)
 
-- [カバレッジ(網羅率)分析とは](https://www.techmatrix.co.jp/t/quality/coverage.html)
+ - [What are mock and stub used in unit testing?](https://blog.morizyun.com/blog/mock-stub-outline-rspec-ruby/)
+
+ - [カバレッジ(網羅率)分析とは](https://www.techmatrix.co.jp/t/quality/coverage.html)
+
+ ### 2.testthatについて
+
+ - [testthatメモ](https://dichika.hateblo.jp/entry/20140308/p1)
+
+ - [RDocumentation](https://www.rdocumentation.org/packages/testthat/versions/2.1.1)
+
+ - [testthatを使って自動テスト用のデータをどこに置くか](https://codeday.me/jp/qa/20190224/280068.html)
+
+ - [R packages by Hadley Wickham](http://r-pkgs.had.co.nz/tests.html) 
